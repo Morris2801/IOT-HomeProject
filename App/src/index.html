@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartRoom Dashboard</title>
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="./css/normalize.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <!-- Feather Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i data-feather="home" class="icon"></i>
+                <span>SmartRoom</span>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-page="dashboard">
+                    <i data-feather="grid" class="icon"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-page="historical">
+                    <i data-feather="clock" class="icon"></i>
+                    <span>Historical Data</span>
+                </button>
+                <button class="nav-item" data-page="alerts">
+                    <i data-feather="bell" class="icon"></i>
+                    <span>Alerts</span>
+                </button>
+                <button class="nav-item" data-page="settings">
+                    <i data-feather="settings" class="icon"></i>
+                    <span>Settings</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <section class="page active" id="dashboard">
+                <h2>Current Status</h2>
+                <div class="cards-grid">
+                    <!-- Temperature Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Temperature</h3>
+                            <i data-feather="thermometer" class="icon"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric" id="temperature">22°C</div>
+                            <div class="update-time">Updated just now</div>
+                        </div>
+                    </div>
+
+                    <!-- Humidity Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Humidity</h3>
+                            <i data-feather="droplet" class="icon"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric" id="humidity">45%</div>
+                            <div class="update-time">Updated just now</div>
+                        </div>
+                    </div>
+
+                    <!-- Air Quality Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Air Quality</h3>
+                            <i data-feather="wind" class="icon"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric" id="air-quality">85%</div>
+                            <div class="update-time">Updated just now</div>
+                        </div>
+                    </div>
+
+                    <!-- People Count Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>People Count</h3>
+                            <i data-feather="users" class="icon"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric" id="people-count">3</div>
+                            <div class="update-time">Updated just now</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Controls -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Quick Controls</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="controls-grid">
+                            <button class="control-btn" id="windows-btn">Windows</button>
+                            <button class="control-btn" id="fan-btn">Fan</button>
+                            <button class="control-btn" id="ac-btn">AC</button>
+                            <button class="control-btn secondary" id="reset-btn">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Historical Data Page -->
+           <!-- En la sección historical del index.html -->
+            <section class="page" id="historical">
+                <h2>Historical Data</h2>
+                
+                <!-- Gráficos de ThingSpeak -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>ThingSpeak Charts</h3>
+                    </div>
+                    <div class="card-content">
+                        <!-- Reemplaza CHANNEL_ID con tu ID de canal -->
+                        <!-- Temperatura -->
+                        <iframe width="100%" height="260" style="border: 1px solid #cccccc;" 
+                            src="https://thingspeak.com/channels/CHANNEL_ID/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Temperature&type=line">
+                        </iframe>
+                        
+                        <!-- Humedad -->
+                        <iframe width="100%" height="260" style="border: 1px solid #cccccc;" 
+                            src="https://thingspeak.com/channels/CHANNEL_ID/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Humidity&type=line">
+                        </iframe>
+                        
+                        <!-- Calidad del Aire -->
+                        <iframe width="100%" height="260" style="border: 1px solid #cccccc;" 
+                            src="https://thingspeak.com/channels/CHANNEL_ID/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=Air+Quality&type=line">
+                        </iframe>
+                        
+                        <!-- Conteo de Personas -->
+                        <iframe width="100%" height="260" style="border: 1px solid #cccccc;" 
+                            src="https://thingspeak.com/channels/CHANNEL_ID/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&title=People+Count&type=line">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Los gráficos existentes de Chart.js se mantienen aquí -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Temperature & Humidity Trends</h3>
+                    </div>
+                    <div class="card-content">
+                        <canvas id="tempHumChart"></canvas>
+                    </div>
+                </div>
+                <!-- ... resto del código ... -->
+            </section>
+
+            <!-- Alerts Page -->
+            <section class="page" id="alerts">
+                <h2>System Alerts</h2>
+                <div class="alerts-container">
+                    <div class="alert info">
+                        <div class="alert-title">Temperature Alert</div>
+                        <div class="alert-description">
+                            Room temperature above threshold (25°C). AC activated automatically.
+                        </div>
+                    </div>
+
+                    <div class="alert warning">
+                        <div class="alert-title">Air Quality Warning</div>
+                        <div class="alert-description">
+                            CO2 levels rising. Windows opened for ventilation.
+                        </div>
+                    </div>
+
+                    <div class="alert default">
+                        <div class="alert-title">Occupancy Notice</div>
+                        <div class="alert-description">
+                            Room capacity optimal (3 people).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Alert Settings</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <span>Temperature Alerts</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Air Quality Alerts</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Occupancy Alerts</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section class="page" id="settings">
+                <h2>System Settings</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Environmental Controls</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="settings-controls">
+                            <div class="control-group">
+                                <label>Temperature Threshold</label>
+                                <input type="range" min="18" max="28" value="23" class="slider" id="temp-threshold">
+                                <div class="slider-labels">
+                                    <span>18°C</span>
+                                    <span>23°C</span>
+                                    <span>28°C</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Humidity Target</label>
+                                <input type="range" min="30" max="70" value="45" class="slider" id="humidity-target">
+                                <div class="slider-labels">
+                                    <span>30%</span>
+                                    <span>45%</span>
+                                    <span>70%</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Air Quality Minimum</label>
+                                <input type="range" min="0" max="100" value="80" class="slider" id="air-quality-min">
+                                <div class="slider-labels">
+                                    <span>Poor</span>
+                                    <span>Good</span>
+                                    <span>Excellent</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Automation Settings</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <span>Automatic Window Control</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Automatic Fan Control</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Automatic AC Control</span>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="C:\Users\mauri\OneDrive\Documents\Programacion\JavaScript\React\retoiot1\src\js\data.js"></script>
+    <script src="C:\Users\mauri\OneDrive\Documents\Programacion\JavaScript\React\retoiot1\src\js\charts.js"></script>
+    <script src="C:\Users\mauri\OneDrive\Documents\Programacion\JavaScript\React\retoiot1\src\js\main.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Al final del body en index.html -->
+    <script src="index.js" type="module"></script>
+</body>
+</html>
