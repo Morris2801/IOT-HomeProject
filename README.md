@@ -10,3 +10,6 @@ To use:
 5. Run the following command: *npm run dev*
 6. Open the running localhost link and click around the App.
 7. If everything went correctly, you should see data update in almost real time (limited by ThingSpeak's refresh rate). 
+
+
+Developed using React+Vite, Tailwind, HTML, JavaScript, CSS, and with help of my teammates and Microsoft Copilot and Claude.ai.
